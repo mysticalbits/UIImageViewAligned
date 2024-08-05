@@ -7,6 +7,18 @@
 
 #import "UIImageViewAligned.h"
 
+@interface ClearImageLayer : CALayer
+@end
+
+@implementation ClearImageLayer
+
+- (void)setContents:(id)contents {
+    [super setContents:nil];
+}
+
+@end
+
+
 @implementation UIImageViewAligned
 
 - (id)initWithFrame:(CGRect)frame
@@ -19,6 +31,9 @@
     return self;
 }
 
++ (Class)layerClass {
+    return ClearImageLayer.class;
+}
 
 - (id)initWithImage:(UIImage *)image
 {
@@ -76,6 +91,7 @@
 - (void)setImage:(UIImage *)image
 {
     [_realImageView setImage:image];
+    super.image = nil;
     [self setNeedsLayout];
 }
 
